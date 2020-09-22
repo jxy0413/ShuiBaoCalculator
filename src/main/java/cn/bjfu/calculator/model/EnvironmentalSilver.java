@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class EnvironmentalSilver {
+     private String shuzhou;//树种
      private Double E; //蒸腾量
      private Double LH; //海拔
      private Double T;//温度
@@ -18,4 +19,6 @@ public class EnvironmentalSilver {
      private Double Z0;//0.1倍树高
      private Double RH;//相对空气湿度
      private Double RST;//
+     private Double VPD;//包和水气压差
+     private String collectTime;//收集时间
 }

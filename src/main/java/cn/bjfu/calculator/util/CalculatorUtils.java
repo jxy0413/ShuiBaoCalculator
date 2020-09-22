@@ -6,13 +6,17 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
+
 import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class CalculatorUtils {
     public double getResults(EnvironmentalSilver environmentalSilver){
+        //System.out.println("----"+environmentalSilver);
         double kaitou,fenmu,fenzi,zhongjian,zhongjianfenmu,x,x1,x2,x3,x4,x5,x6,result;
         double zhishu =environmentalSilver.getLH()/(18400*(1+environmentalSilver.getT()/273));//10上面的数
         kaitou = Math.pow(10,zhishu);
@@ -27,13 +31,13 @@ public class CalculatorUtils {
         fenmu=kaitou*(zhongjian/zhongjian)+x4;
         return fenzi/fenmu;
     }
-    public void importExcel(String filePath) throws Exception{
+    public List<EnvironmentalSilver> importExcel(String filePath) throws Exception{
         XSSFWorkbook wookbook = new XSSFWorkbook(new FileInputStream(filePath));
         XSSFSheet sheet = wookbook.getSheet("Sheet1");
         //获取到Excel文件中的所有行数
         int rows = sheet.getPhysicalNumberOfRows();
-        List<Double> list = new ArrayList();
-        for(int i=0;i<rows;i++){
+        List<EnvironmentalSilver> list = new ArrayList();
+        for(int i=1;i<rows;i++){
             XSSFRow row = sheet.getRow(i);
             if(row!=null){
                 //获取到Excel文件中的所有的列
@@ -56,9 +60,17 @@ public class CalculatorUtils {
                 XSSFCell ZCell = row.getCell(9);
                 String Z = getValue(ZCell);
                 XSSFCell dCell = row.getCell(10);
-                String D = getValue(UCell);
+                String D = getValue(dCell);
                 XSSFCell zCell = row.getCell(11);
                 String Z0 = getValue(zCell);
+                XSSFCell Datecell = row.getCell(12);
+                String collectTime = getValue(Datecell);
+                XSSFCell shuzhongcell = row.getCell(13);
+                String shuzhong = getValue(shuzhongcell);
+                XSSFCell shuiqiyacell = row.getCell(14);
+                String shuiqiya = getValue(shuiqiyacell);
+                XSSFCell RhCell = row.getCell(15);
+                String Rh= getValue(RhCell);
                 EnvironmentalSilver environmentalSilver = new EnvironmentalSilver();
                 environmentalSilver.setLH(Double.parseDouble(LH));
                 environmentalSilver.setT(Double.parseDouble(T));
@@ -69,19 +81,29 @@ public class CalculatorUtils {
                 environmentalSilver.setP1(Double.parseDouble(P1));
                 environmentalSilver.setU(Double.parseDouble(U));
                 environmentalSilver.setZ(Double.parseDouble(Z));
-                environmentalSilver.setZ(Double.parseDouble(D));
+                environmentalSilver.setD(Double.parseDouble(D));
                 environmentalSilver.setZ0(Double.parseDouble(Z0));
+                environmentalSilver.setCollectTime(collectTime);
+                environmentalSilver.setShuzhou(shuzhong);
+                environmentalSilver.setVPD(Double.parseDouble(shuiqiya));
+                environmentalSilver.setRH(Double.parseDouble(Rh));
+                //todo 需要一个方法 算出RST
+                Double rst = getRsT(environmentalSilver);
+                environmentalSilver.setRST(rst);
                 double result = getResults(environmentalSilver);
-                list.add(result);
+                environmentalSilver.setE(result);
+                System.out.println("888"+environmentalSilver);
+                list.add(environmentalSilver);
             }
-            PrintWriter  pw = new PrintWriter("E://data.txt");
-            for(Double res: list) {
-                pw.println(res);
-            }
-            pw.close();
-            System.out.println("list = "+ JSON.toJSONString(list));
         }
+        //System.out.println("list = "+ JSON.toJSONString(list));
+        return list;
     }
+
+    private Double getRsT(EnvironmentalSilver environmentalSilver) {
+        return 1000.0;
+    }
+
     private String getValue(XSSFCell xSSFCell){
         if(null == xSSFCell){
             return "";
