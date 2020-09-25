@@ -5,6 +5,8 @@ import cn.bjfu.calculator.util.CalculatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +20,9 @@ public class CalculatorService {
     /*
     青杨根据日、月、年
     */
-    public List<Map<String, String>> getQingyangByDay(String date) throws Exception {
+    public List<Map<String, String>> getQingyangByDay(String date, InputStream in) throws Exception {
         //先挑选出青扬
-        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel("src/main/resources/file/text.xlsx");
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
         List<EnvironmentalSilver> qingyang = getShuzhong(environmentalSilvers, "青杨");
         //挑选出时间
         List<EnvironmentalSilver> shijianList = new ArrayList();
@@ -39,9 +41,9 @@ public class CalculatorService {
         return listMap;
     }
 
-    public List<Map<String,String>> getQingyangByMonth(String date) throws Exception{
+    public List<Map<String,String>> getQingyangByMonth(String date, InputStream in) throws Exception{
         //挑选青杨
-        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel("src/main/resources/file/text.xlsx");
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
         List<EnvironmentalSilver> qingyang = getShuzhong(environmentalSilvers,"青杨");
         //查找相应月份
         List<EnvironmentalSilver> monthList = new ArrayList<>();
@@ -60,9 +62,9 @@ public class CalculatorService {
         return mapList;
     }
 
-    public List<Map<String,String>> getQingyangByYear(String date) throws Exception{
+    public List<Map<String,String>> getQingyangByYear(String date, InputStream in) throws Exception{
         //挑选青杨
-        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel("src/main/resources/file/text.xlsx");
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
         List<EnvironmentalSilver> qingyang = getShuzhong(environmentalSilvers,"青杨");
         //查找相应年份
         List<EnvironmentalSilver> yearList = new ArrayList<>();
@@ -83,9 +85,9 @@ public class CalculatorService {
     /*
     云杉根据日、月、年
      */
-    public List<Map<String,String>> getYunshanByDay(String date) throws Exception{
+    public List<Map<String,String>> getYunshanByDay(String date, InputStream in) throws Exception{
          //挑选云杉
-        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel("src/main/resources/file/text.xlsx");
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
         List<EnvironmentalSilver> yunshan = getShuzhong(environmentalSilvers,"云杉");
         //按天查找
         List<EnvironmentalSilver> dayList = new ArrayList<>();
@@ -103,9 +105,9 @@ public class CalculatorService {
         return mapList;
     }
 
-    public List<Map<String,String>> getYunshanByMonth(String date) throws Exception{
+    public List<Map<String,String>> getYunshanByMonth(String date, InputStream in) throws Exception{
         //挑选云杉
-        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel("src/main/resources/file/text.xlsx");
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
         List<EnvironmentalSilver> yunshan = getShuzhong(environmentalSilvers,"云杉");
         //查找相应月份
         List<EnvironmentalSilver> monthList = new ArrayList<>();
@@ -124,9 +126,9 @@ public class CalculatorService {
         return mapList;
     }
 
-    public List<Map<String,String>> getYunshanByYear(String date) throws Exception{
+    public List<Map<String,String>> getYunshanByYear(String date, InputStream in) throws Exception{
         //挑选云杉
-        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel("src/main/resources/file/text.xlsx");
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
         List<EnvironmentalSilver> yunshan = getShuzhong(environmentalSilvers,"云杉");
         //查找相应年份
         List<EnvironmentalSilver> yearList = new ArrayList<>();
@@ -147,9 +149,9 @@ public class CalculatorService {
     /*
     白杨根据日、月、年
      */
-    public List<Map<String,String>> getBaiyangByDay(String date) throws Exception{
+    public List<Map<String,String>> getBaiyangByDay(String date, InputStream in) throws Exception{
         //挑选白杨
-        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel("src/main/resources/file/text.xlsx");
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
         List<EnvironmentalSilver> baiyang = getShuzhong(environmentalSilvers,"白杨");
         //按天查找
         List<EnvironmentalSilver> dayList = new ArrayList<>();
@@ -167,9 +169,9 @@ public class CalculatorService {
         return mapList;
     }
 
-    public List<Map<String,String>> getBaiyangByMonth(String date) throws Exception{
+    public List<Map<String,String>> getBaiyangByMonth(String date, InputStream in) throws Exception{
         //挑选白杨
-        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel("src/main/resources/file/text.xlsx");
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
         List<EnvironmentalSilver> baiyang = getShuzhong(environmentalSilvers,"白杨");
         //查找相应月份
         List<EnvironmentalSilver> monthList = new ArrayList<>();
@@ -188,9 +190,9 @@ public class CalculatorService {
         return mapList;
     }
 
-    public List<Map<String,String>> getBaiyangByYear(String date) throws Exception{
+    public List<Map<String,String>> getBaiyangByYear(String date, InputStream in) throws Exception{
         //挑选白杨
-        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel("src/main/resources/file/text.xlsx");
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
         List<EnvironmentalSilver> baiyang = getShuzhong(environmentalSilvers,"白杨");
         //查找相应年份
         List<EnvironmentalSilver> yearList = new ArrayList<>();
