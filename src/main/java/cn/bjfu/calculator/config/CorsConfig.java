@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @create 2020-09-25 20:11
  */
 @Configuration
-
 public class CorsConfig extends WebMvcConfigurerAdapter {
 
 
