@@ -2,6 +2,9 @@ package cn.bjfu.calculator.util;
 
 import cn.bjfu.calculator.model.EnvironmentalSilver;
 import cn.bjfu.calculator.service.BaihuaService;
+import cn.bjfu.calculator.service.Luoyesong;
+import cn.bjfu.calculator.service.QingyangService;
+import cn.bjfu.calculator.service.YunshanService;
 import com.alibaba.fastjson.JSON;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -21,6 +24,12 @@ import java.util.List;
 public class CalculatorUtils {
     @Autowired
     private BaihuaService baihuaService;
+    @Autowired
+    private QingyangService qingyangService;
+    @Autowired
+    private Luoyesong luoyesong;
+    @Autowired
+    private YunshanService yunshanService;
     public double getResults(EnvironmentalSilver environmentalSilver){
         //System.out.println("----"+environmentalSilver);
         double kaitou,fenmu,fenzi,zhongjian,zhongjianfenmu,x,x1,x2,x3,x4,x5,x6,result;
@@ -109,13 +118,15 @@ public class CalculatorUtils {
     private Double getRsT(EnvironmentalSilver environmentalSilver) {
         Double result ;
         if("白桦".equals(environmentalSilver.getShuzhou())){
-               baihuaService.calc(environmentalSilver);
+             result=  baihuaService.calc(environmentalSilver);
+        }else if("青杨".equals(environmentalSilver.getShuzhou())){
+              result= qingyangService.calc(environmentalSilver);
+        }else if("云杉".equals(environmentalSilver.getShuzhou())){
+              result= yunshanService.calc(environmentalSilver);
         }else{
-
+             result = luoyesong.calc(environmentalSilver);
         }
-
-
-        return 1000.0;
+        return result;
     }
 
     private String getValue(XSSFCell xSSFCell){
