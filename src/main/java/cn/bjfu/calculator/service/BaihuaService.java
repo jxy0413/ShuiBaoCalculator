@@ -68,6 +68,8 @@ public class BaihuaService {
     int hour = DateUtil.hour(collectDate, true);
 
     if (hour >= 5 && hour <= 7) { // 05:00-08:00
+      // y = 2E+08e-1.258T
+      result = 2 * Math.pow(10, 8) * Math.exp(-1.258 * environmentalSilver.getT());
 
     } else if (hour >= 8 && hour <= 14) { // 08:00-15:00
       // y = -158.2ln(T) + 426.4
@@ -100,7 +102,7 @@ public class BaihuaService {
 
     if (hour >= 5 && hour <= 7) { // 05:00-08:00
       // y = 1E+10e-1.293T
-
+      result = 1 * Math.pow(10, 10) * Math.exp(-1.293 * environmentalSilver.getT());
     } else if (hour >= 8 && hour <= 14) { // 08:00-15:00
       // y = 399.28e-1.611VPD
       result = 399.28 * Math.exp(-1.611 * environmentalSilver.getVPD());
