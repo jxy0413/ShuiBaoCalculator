@@ -164,7 +164,7 @@ public class CalculatorController {
 
     @PostMapping("/putFile")
     public ResultModel putFile(@RequestParam("file")MultipartFile file,String date)throws Exception{
-        ResultModel res =getQingyangByDay(date,file.getInputStream());
+        ResultModel res =getBaiyangByDay(date,file.getInputStream());
         ResultModel res1 = getBaiyangByMonth(date, file.getInputStream());
         ResultModel res2 = getBaiyangByYear(date, file.getInputStream());
         ResultModel res3 = getQingyangByDay(date,file.getInputStream());
