@@ -1,20 +1,26 @@
 package cn.bjfu.calculator.util;
 
 import cn.bjfu.calculator.model.EnvironmentalSilver;
+import cn.bjfu.calculator.service.BaihuaService;
 import com.alibaba.fastjson.JSON;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class CalculatorUtils {
+    @Autowired
+    private BaihuaService baihuaService;
     public double getResults(EnvironmentalSilver environmentalSilver){
         //System.out.println("----"+environmentalSilver);
         double kaitou,fenmu,fenzi,zhongjian,zhongjianfenmu,x,x1,x2,x3,x4,x5,x6,result;
@@ -31,8 +37,8 @@ public class CalculatorUtils {
         fenmu=kaitou*(zhongjian/zhongjian)+x4;
         return fenzi/fenmu;
     }
-    public List<EnvironmentalSilver> importExcel(String filePath) throws Exception{
-        XSSFWorkbook wookbook = new XSSFWorkbook(new FileInputStream(filePath));
+    public List<EnvironmentalSilver> importExcel(InputStream in) throws Exception{
+        XSSFWorkbook wookbook = new XSSFWorkbook(in);
         XSSFSheet sheet = wookbook.getSheet("Sheet1");
         //获取到Excel文件中的所有行数
         int rows = sheet.getPhysicalNumberOfRows();
@@ -101,6 +107,14 @@ public class CalculatorUtils {
     }
 
     private Double getRsT(EnvironmentalSilver environmentalSilver) {
+        Double result ;
+        if("白桦".equals(environmentalSilver.getShuzhou())){
+               baihuaService.calc(environmentalSilver);
+        }else{
+
+        }
+
+
         return 1000.0;
     }
 
