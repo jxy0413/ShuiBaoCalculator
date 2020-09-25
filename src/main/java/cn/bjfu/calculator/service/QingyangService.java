@@ -125,7 +125,8 @@ public class QingyangService {
         int hour = DateUtil.hour(collectDate, true);
 
         if (hour >= 5 && hour <= 7) { // 05:00-08:00
-            //result = 3*environmentalSilver.getE()+07e-1.125T
+            //y = 3E+07e-1.125T
+            result =3*Math.pow(10, 7)*Math.exp(-1.125*environmentalSilver.getT());
         } else if (hour >= 8 && hour <= 14) { // 08:00-15:00
             result = 252.082 * environmentalSilver.getVPD() + 3.904 * environmentalSilver.getRH() - 16.454 * environmentalSilver.getT() - 118.67;
         } else if (hour >= 15 && hour <= 20) { // 15:00-20:00
@@ -159,7 +160,8 @@ public class QingyangService {
         } else if (hour >= 15 && hour <= 20) { // 15:00-20:00
             result = 259.94 * Math.pow(environmentalSilver.getVPD(), 2) - 399.07 * environmentalSilver.getVPD() + 230.15;
         } else if (hour >= 20 && hour <= 23) { // 20:00-24:00
-            // result = 2*environmentalSilver.getE()+09e-1.243T
+            //y = 2E+09e-1.243T
+            result = 2*Math.pow(10, 9)*Math.exp(-1.243*environmentalSilver.getT());
         } else {
             result = -1D;
         }
