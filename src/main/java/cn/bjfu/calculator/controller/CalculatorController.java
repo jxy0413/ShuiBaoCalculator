@@ -125,13 +125,70 @@ public class CalculatorController {
         return  ResultModel.error("404","error");
     }
 
+
+    /**
+     * 作图 返回落叶松某一天做一个图
+     * @param date
+     * @return
+     */
+    @GetMapping("/getLuoyesongByDay")
+    public ResultModel getLuoyesongByDay(String date,InputStream inputStream) throws Exception{
+        List<Map<String,String>> list = calculatorService.getLuoyesongByDay(date,inputStream);
+        if (!list.isEmpty())
+            return ResultModel.ok(list);
+        return  ResultModel.error("404","error");
+    }
+
+    /**
+     * 返回白杨某一月做一个图
+     */
+    @GetMapping("/getLuoyesongByMonth")
+    public ResultModel getLuoyesongByMonth(String date,InputStream inputStream) throws Exception{
+        List<Map<String,String>> list = calculatorService.getLuoyesongByMonth(date,inputStream);
+        if (!list.isEmpty())
+            return ResultModel.ok(list);
+        return  ResultModel.error("404","error");
+    }
+
+    /**
+     * 返回白杨某一年做一个图
+     */
+    @GetMapping("/getLuoyesongByYear")
+    public ResultModel getLuoyesongByYear(String date,InputStream inputStream) throws Exception{
+        List<Map<String,String>> list = calculatorService.getLuoyesongByYear(date,inputStream);
+        if (!list.isEmpty())
+            return ResultModel.ok(list);
+        return  ResultModel.error("404","error");
+    }
+
+
     @PostMapping("/putFile")
     public ResultModel putFile(@RequestParam("file")MultipartFile file,String date)throws Exception{
         ResultModel res =getQingyangByDay(date,file.getInputStream());
         ResultModel res1 = getBaiyangByMonth(date, file.getInputStream());
+        ResultModel res2 = getBaiyangByYear(date, file.getInputStream());
+        ResultModel res3 = getQingyangByDay(date,file.getInputStream());
+        ResultModel res4 = getQingyangByMonth(date, file.getInputStream());
+        ResultModel res5 = getQingyangByYear(date, file.getInputStream());
+        ResultModel res6 = getYunshanByDay(date, file.getInputStream());
+        ResultModel res7 = getYunshanByMonth(date, file.getInputStream());
+        ResultModel res8 = getYunshanByYear(date, file.getInputStream());
+        ResultModel res9 = getLuoyesongByDay(date, file.getInputStream());
+        ResultModel res10 = getLuoyesongByMonth(date, file.getInputStream());
+        ResultModel res11 = getLuoyesongByYear(date, file.getInputStream());
         Object arr [] =new Object[12];
         arr[0] =res.getData();
         arr[1] =res1.getData();
+        arr[2] =res2.getData();
+        arr[3] =res3.getData();
+        arr[4] =res4.getData();
+        arr[5] =res5.getData();
+        arr[6] =res6.getData();
+        arr[7] =res7.getData();
+        arr[8] =res8.getData();
+        arr[9] =res9.getData();
+        arr[10] =res10.getData();
+        arr[11] =res11.getData();
         return ResultModel.ok(arr);
     }
 

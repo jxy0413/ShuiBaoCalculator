@@ -46,9 +46,10 @@ public class CalculatorService {
         List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
         List<EnvironmentalSilver> qingyang = getShuzhong(environmentalSilvers,"青杨");
         //查找相应月份
+        String[] month = date.split("月");
         List<EnvironmentalSilver> monthList = new ArrayList<>();
         for (EnvironmentalSilver q:qingyang){
-            if (q.getCollectTime().contains(date)){
+            if (q.getCollectTime().contains(month[0])){
                 monthList.add(q);
             }
         }
@@ -69,7 +70,8 @@ public class CalculatorService {
         //查找相应年份
         List<EnvironmentalSilver> yearList = new ArrayList<>();
         for (EnvironmentalSilver q:qingyang){
-            if (q.getCollectTime().contains(date))
+            String[] year = date.split("年");
+            if (q.getCollectTime().contains(year[0]))
                 yearList.add(q);
         }
         //返回键值集合
@@ -112,7 +114,8 @@ public class CalculatorService {
         //查找相应月份
         List<EnvironmentalSilver> monthList = new ArrayList<>();
         for (EnvironmentalSilver q:yunshan){
-            if (q.getCollectTime().contains(date)){
+            String[] month = date.split("月");
+            if (q.getCollectTime().contains(month[0])){
                 monthList.add(q);
             }
         }
@@ -133,7 +136,8 @@ public class CalculatorService {
         //查找相应年份
         List<EnvironmentalSilver> yearList = new ArrayList<>();
         for (EnvironmentalSilver q:yunshan){
-            if (q.getCollectTime().contains(date))
+            String[] month = date.split("年");
+            if (q.getCollectTime().contains(month[0]))
                 yearList.add(q);
         }
         //返回键值集合
@@ -176,7 +180,8 @@ public class CalculatorService {
         //查找相应月份
         List<EnvironmentalSilver> monthList = new ArrayList<>();
         for (EnvironmentalSilver q:baiyang){
-            if (q.getCollectTime().contains(date)){
+            String[] month = date.split("月");
+            if (q.getCollectTime().contains(month[0])){
                 monthList.add(q);
             }
         }
@@ -197,7 +202,8 @@ public class CalculatorService {
         //查找相应年份
         List<EnvironmentalSilver> yearList = new ArrayList<>();
         for (EnvironmentalSilver q:baiyang){
-            if (q.getCollectTime().contains(date))
+            String[] month = date.split("年");
+            if (q.getCollectTime().contains(month[0]))
                 yearList.add(q);
         }
         //返回键值集合
@@ -218,5 +224,68 @@ public class CalculatorService {
             }
         }
         return shuzhongList;
+    }
+
+    public List<Map<String, String>> getLuoyesongByDay(String date, InputStream in) throws Exception{
+        //挑选白杨
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
+        List<EnvironmentalSilver> baiyang = getShuzhong(environmentalSilvers,"落叶松");
+        //按天查找
+        List<EnvironmentalSilver> dayList = new ArrayList<>();
+        for (EnvironmentalSilver y:baiyang){
+            if (y.getCollectTime().contains(date))
+                dayList.add(y);
+        }
+        //返回键值列表
+        List<Map<String,String>> mapList = new ArrayList<>();
+        for (EnvironmentalSilver list:dayList){
+            Map map = new HashMap();
+            map.put(list.getCollectTime(),list.getE());
+            mapList.add(map);
+        }
+        return mapList;
+    }
+
+    public List<Map<String, String>> getLuoyesongByMonth(String date, InputStream in)throws Exception{
+        //挑选白杨
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
+        List<EnvironmentalSilver> baiyang = getShuzhong(environmentalSilvers,"落叶松");
+        //查找相应月份
+        List<EnvironmentalSilver> monthList = new ArrayList<>();
+        for (EnvironmentalSilver q:baiyang){
+            String[] month = date.split("月");
+            if (q.getCollectTime().contains(month[0])){
+                monthList.add(q);
+            }
+        }
+        //返回键值集合
+        List<Map<String,String>> mapList = new ArrayList<>();
+        for (EnvironmentalSilver list:monthList){
+            Map map = new HashMap();
+            map.put(list.getCollectTime(),list.getE());
+            mapList.add(map);
+        }
+        return mapList;
+    }
+
+    public List<Map<String, String>> getLuoyesongByYear(String date, InputStream in)throws Exception {
+        //挑选白杨
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
+        List<EnvironmentalSilver> baiyang = getShuzhong(environmentalSilvers,"落叶松");
+        //查找相应年份
+        List<EnvironmentalSilver> yearList = new ArrayList<>();
+        for (EnvironmentalSilver q:baiyang){
+            String[] month = date.split("年");
+            if (q.getCollectTime().contains(month[0]))
+                yearList.add(q);
+        }
+        //返回键值集合
+        List<Map<String,String>> mapList = new ArrayList<>();
+        for (EnvironmentalSilver list:yearList){
+            Map map = new HashMap();
+            map.put(list.getCollectTime(),list.getE());
+            mapList.add(map);
+        }
+        return mapList;
     }
 }
