@@ -8,13 +8,11 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
- * 白桦计算的公式
- *
  * @author chaird
- * @create 2020-09-25 14:54
+ * @create 2020-09-25 16:26
  */
 @Component
-public class BaihuaService {
+public class QingyangService {
 
   public double calc(EnvironmentalSilver environmentalSilver) {
 
