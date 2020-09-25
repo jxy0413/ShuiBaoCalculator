@@ -77,7 +77,7 @@ public class BaihuaService {
       result = -1109 * Math.log(environmentalSilver.getT()) + 3751.7;
     } else if (hour >= 20 && hour <= 23) { // 20:00-24:00
       // y = 6150.1e-0.047RH
-      result = 6150.1 * Math.log(-0.047 * environmentalSilver.getRH());
+      result = 6150.1 * Math.exp(-0.047 * environmentalSilver.getRH());
     } else {
       result = -1D;
     }
@@ -103,11 +103,11 @@ public class BaihuaService {
 
     } else if (hour >= 8 && hour <= 14) { // 08:00-15:00
       // y = 399.28e-1.611VPD
-      result = 399.28 * Math.log(-1.611 * environmentalSilver.getVPD());
+      result = 399.28 * Math.exp(-1.611 * environmentalSilver.getVPD());
 
     } else if (hour >= 15 && hour <= 20) { // 15:00-20:00
       // y = 657.7e-0.09T
-      result = 657.7 * Math.log(-0.09 * environmentalSilver.getT());
+      result = 657.7 * Math.exp(-0.09 * environmentalSilver.getT());
     } else if (hour >= 20 && hour <= 23) { // 20:00-24:00
       // y = 773.36VPD + 53.605
       result = 773.36 * environmentalSilver.getVPD() + 53.605;
@@ -136,13 +136,13 @@ public class BaihuaService {
       result = -1272 * Math.log(-0.09 * environmentalSilver.getT()) - 388.89;
     } else if (hour >= 8 && hour <= 14) { // 08:00-15:00
       // y = 446.87e-0.126T
-      result = 446.87 * Math.log(-0.126 * environmentalSilver.getT());
+      result = 446.87 * Math.exp(-0.126 * environmentalSilver.getT());
     } else if (hour >= 15 && hour <= 20) { // 15:00-20:00
       // y = 2109.1e-0.105T
-      result = 2109.1 * Math.log(-0.105 * environmentalSilver.getT());
+      result = 2109.1 * Math.exp(-0.105 * environmentalSilver.getT());
     } else if (hour >= 20 && hour <= 23) { // 20:00-24:00
       // y = 150398e-0.075RH
-      result = 150398 * Math.log(-0.075 * environmentalSilver.getRH());
+      result = 150398 * Math.exp(-0.075 * environmentalSilver.getRH());
     } else {
       result = -1D;
     }
@@ -165,16 +165,16 @@ public class BaihuaService {
 
     if (hour >= 5 && hour <= 7) { // 05:00-08:00
       // y = 4136.8e-6.031VPD
-      result = 4136.8 * Math.log(-6.031 * environmentalSilver.getVPD());
+      result = 4136.8 * Math.exp(-6.031 * environmentalSilver.getVPD());
     } else if (hour >= 8 && hour <= 14) { // 08:00-15:00
       // y = 3004.9e-0.599VPD
-      result = 3004.9 * Math.log(-0.599 * environmentalSilver.getVPD());
+      result = 3004.9 * Math.exp(-0.599 * environmentalSilver.getVPD());
     } else if (hour >= 15 && hour <= 20) { // 15:00-20:00
       // y = 133.24e0.0255RH
-      result = 133.24 * Math.log(0.0255 * environmentalSilver.getRH());
+      result = 133.24 * Math.exp(0.0255 * environmentalSilver.getRH());
     } else if (hour >= 20 && hour <= 23) { // 20:00-24:00
       // y = 493824e-0.381T
-      result = 493824 * Math.log(-0.381 * environmentalSilver.getT());
+      result = 493824 * Math.exp(-0.381 * environmentalSilver.getT());
     } else {
       result = -1D;
     }
@@ -197,16 +197,16 @@ public class BaihuaService {
 
     if (hour >= 5 && hour <= 7) { // 05:00-08:00
       // y = 2308.3e-0.06T
-      result = 2308.3 * Math.log(-0.06 * environmentalSilver.getT());
+      result = 2308.3 * Math.exp(-0.06 * environmentalSilver.getT());
     } else if (hour >= 8 && hour <= 14) { // 08:00-15:00
       // y = y = 9982.1e-0.124T
-      result = 9982.1 * Math.log(-0.124 * environmentalSilver.getT());
+      result = 9982.1 * Math.exp(-0.124 * environmentalSilver.getT());
     } else if (hour >= 15 && hour <= 20) { // 15:00-20:00
       // y = 389.69e0.0167RH
-      result = 389.69 * Math.log(0.0167 * environmentalSilver.getRH());
+      result = 389.69 * Math.exp(0.0167 * environmentalSilver.getRH());
     } else if (hour >= 20 && hour <= 23) { // 20:00-24:00
       // y = 2636.9e-0.084 T
-      result = 2636.9 * Math.log(-0.084 * environmentalSilver.getT());
+      result = 2636.9 * Math.exp(-0.084 * environmentalSilver.getT());
     } else {
       result = -1D;
     }
@@ -229,14 +229,14 @@ public class BaihuaService {
 
     if (hour >= 5 && hour <= 7) { // 05:00-08:00
       // y = 3400.5e-4.21VPD
-      result = 3400.5 * Math.log(-4.21 * environmentalSilver.getVPD());
+      result = 3400.5 * Math.exp(-4.21 * environmentalSilver.getVPD());
 
     } else if (hour >= 8 && hour <= 14) { // 08:00-15:00
       // y = 2370.2e-0.427T
-      result = 2370.2 * Math.log(-0.427 * environmentalSilver.getT());
+      result = 2370.2 * Math.exp(-0.427 * environmentalSilver.getT());
     } else if (hour >= 15 && hour <= 20) { // 15:00-20:00
       // y = 18173e-0.117T
-      result = 18173 * Math.log(-0.117 * environmentalSilver.getT());
+      result = 18173 * Math.exp(-0.117 * environmentalSilver.getT());
     } else if (hour >= 20 && hour <= 23) { // 20:00-24:00
       // y = -28.02RH + 3193.6
       result = -28.02 * environmentalSilver.getRH() + 3193.6;
