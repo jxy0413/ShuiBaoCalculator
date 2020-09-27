@@ -29,7 +29,7 @@ public class CalculatorUtils {
         zhongjian = 4098*(0.618*Math.pow(Math.E,(17.27*environmentalSilver.getT())/(environmentalSilver.getT()+237.3)/(environmentalSilver.getT()+237.3)));
         zhongjianfenmu = 0.665*environmentalSilver.getP()/1000;
         x=(1-Math.pow(Math.E,-environmentalSilver.getK()*environmentalSilver.getLAI()))*environmentalSilver.getRn();
-        x1=1012*environmentalSilver.getP1()*1000/0.665*environmentalSilver.getP();
+        x1=1012*environmentalSilver.getP1()*1000/(0.665*environmentalSilver.getP());
         x2=0.6108*Math.pow(Math.E,17.27*environmentalSilver.getT()/(environmentalSilver.getT()+237.3))*(1-environmentalSilver.getRH());
         x3=4.72/(1+0.54*environmentalSilver.getU()) * Math.log((environmentalSilver.getZ()-environmentalSilver.getD())/environmentalSilver.getZ0())* Math.log((environmentalSilver.getZ()-environmentalSilver.getD())/environmentalSilver.getZ0());
         x4=(1+environmentalSilver.getRST()/(4.72*Math.log(environmentalSilver.getZ()-environmentalSilver.getD())/environmentalSilver.getZ0()*Math.log(environmentalSilver.getZ()-environmentalSilver.getD())/environmentalSilver.getZ0())/(1+0.54*environmentalSilver.getU()));
