@@ -1,11 +1,11 @@
 package cn.bjfu.calculator.service;
 
 import cn.bjfu.calculator.model.EnvironmentalSilver;
+import cn.bjfu.calculator.model.ThirdModel;
+import cn.bjfu.calculator.model.ThirdModelShuzhong;
 import cn.bjfu.calculator.util.CalculatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -290,5 +290,103 @@ public class CalculatorService {
             mapList.add(map);
         }
         return mapList;
+    }
+
+    public List<ThirdModel> getThirdByWendu(InputStream in) throws Exception {
+        //挑选
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
+        List<ThirdModel> list = new ArrayList<>();
+        //foreach
+        for(EnvironmentalSilver e:environmentalSilvers){
+            String collectTime = e.getCollectTime();
+            String[] s = collectTime.split(" ");
+            ThirdModel model =new ThirdModel();
+            model.setRixu(s[0]);
+            model.setShixu(s[1]);
+            model.setT(e.getT());
+            list.add(model);
+        }
+        return list;
+    }
+
+    public List<ThirdModel> getThirdByShidu( InputStream in) throws Exception{
+        //挑选
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
+        List<ThirdModel> list = new ArrayList<>();
+        //foreach
+        for(EnvironmentalSilver e:environmentalSilvers){
+            String collectTime = e.getCollectTime();
+            String[] s = collectTime.split(" ");
+            ThirdModel model =new ThirdModel();
+            model.setRixu(s[0]);
+            model.setShixu(s[1]);
+            model.setT(e.getRH());
+            list.add(model);
+        }
+        return list;
+    }
+
+    public List<ThirdModelShuzhong> getThirdBybaihua(InputStream in) throws Exception{
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
+        List<EnvironmentalSilver> baiyang = getShuzhong(environmentalSilvers,"白桦");
+        List<ThirdModelShuzhong> list = new ArrayList<>();
+        for(EnvironmentalSilver e:baiyang){
+            String collectTime = e.getCollectTime();
+            String[] s = collectTime.split(" ");
+            ThirdModelShuzhong model =new ThirdModelShuzhong();
+            model.setRixu(s[0]);
+            model.setShixu(s[1]);
+            model.setT(e.getE());
+            list.add(model);
+        }
+        return list;
+    }
+
+    public List<ThirdModelShuzhong> getThirdByLuoyesong(InputStream in) throws Exception{
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
+        List<EnvironmentalSilver> baiyang = getShuzhong(environmentalSilvers,"落叶松");
+        List<ThirdModelShuzhong> list = new ArrayList<>();
+        for(EnvironmentalSilver e:baiyang){
+            String collectTime = e.getCollectTime();
+            String[] s = collectTime.split(" ");
+            ThirdModelShuzhong model =new ThirdModelShuzhong();
+            model.setRixu(s[0]);
+            model.setShixu(s[1]);
+            model.setT(e.getE());
+            list.add(model);
+        }
+        return list;
+    }
+
+    public List<ThirdModelShuzhong> getThirdByYunshan(InputStream in)throws Exception {
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
+        List<EnvironmentalSilver> baiyang = getShuzhong(environmentalSilvers,"云杉");
+        List<ThirdModelShuzhong> list = new ArrayList<>();
+        for(EnvironmentalSilver e:baiyang){
+            String collectTime = e.getCollectTime();
+            String[] s = collectTime.split(" ");
+            ThirdModelShuzhong model =new ThirdModelShuzhong();
+            model.setRixu(s[0]);
+            model.setShixu(s[1]);
+            model.setT(e.getE());
+            list.add(model);
+        }
+        return list;
+    }
+
+    public List<ThirdModelShuzhong> getThirdQingyang(InputStream in) throws Exception{
+        List<EnvironmentalSilver> environmentalSilvers = calculatorUtils.importExcel(in);
+        List<EnvironmentalSilver> baiyang = getShuzhong(environmentalSilvers,"青杨");
+        List<ThirdModelShuzhong> list = new ArrayList<>();
+        for(EnvironmentalSilver e:baiyang){
+            String collectTime = e.getCollectTime();
+            String[] s = collectTime.split(" ");
+            ThirdModelShuzhong model =new ThirdModelShuzhong();
+            model.setRixu(s[0]);
+            model.setShixu(s[1]);
+            model.setT(e.getE());
+            list.add(model);
+        }
+        return list;
     }
 }

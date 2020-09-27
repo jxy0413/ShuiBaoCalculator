@@ -1,6 +1,8 @@
 package cn.bjfu.calculator.controller;
 
 import cn.bjfu.calculator.model.ResultModel;
+import cn.bjfu.calculator.model.ThirdModel;
+import cn.bjfu.calculator.model.ThirdModelShuzhong;
 import cn.bjfu.calculator.service.CalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -161,6 +163,64 @@ public class CalculatorController {
         return  ResultModel.error("404","error");
     }
 
+    /**
+     * 日序 时许 温度
+     */
+    @GetMapping("/getThirdByWendu")
+    public ResultModel getThirdByWendu(InputStream inputStream) throws Exception{
+        List<ThirdModel> list = calculatorService.getThirdByWendu( inputStream);
+        if (!list.isEmpty())
+            return ResultModel.ok(list);
+        return  ResultModel.error("404","error");
+    }
+
+    /**
+     * 日序 时许 温度
+     */
+    @GetMapping("/getThirdByShidu")
+    public ResultModel getThirdByShidu(InputStream inputStream) throws Exception{
+        List<ThirdModel> list = calculatorService.getThirdByShidu( inputStream);
+        if (!list.isEmpty())
+            return ResultModel.ok(list);
+        return  ResultModel.error("404","error");
+    }
+
+    /**
+     * 日序 时许 温度
+     */
+    @GetMapping("/getThirdBybaihua")
+    public ResultModel getThirdBybaiyang(InputStream inputStream) throws Exception{
+        List<ThirdModelShuzhong> list = calculatorService.getThirdBybaihua( inputStream);
+        if (!list.isEmpty())
+            return ResultModel.ok(list);
+        return  ResultModel.error("404","error");
+    }
+
+    @GetMapping("/getThirdByLuoyesong")
+    public ResultModel getThirdByLuoyesong(InputStream inputStream) throws Exception{
+        List<ThirdModelShuzhong> list = calculatorService.getThirdByLuoyesong( inputStream);
+        if (!list.isEmpty())
+            return ResultModel.ok(list);
+        return  ResultModel.error("404","error");
+    }
+
+    @GetMapping("/getThirdQingyang")
+    public ResultModel getThirdQingyang(InputStream inputStream) throws Exception{
+        List<ThirdModelShuzhong> list = calculatorService.getThirdQingyang( inputStream);
+        if (!list.isEmpty())
+            return ResultModel.ok(list);
+        return  ResultModel.error("404","error");
+    }
+
+
+    @GetMapping("/getThirdByYunshan")
+    public ResultModel getThirdByYunshan(InputStream inputStream) throws Exception{
+        List<ThirdModelShuzhong> list = calculatorService.getThirdByYunshan( inputStream);
+        if (!list.isEmpty())
+            return ResultModel.ok(list);
+        return  ResultModel.error("404","error");
+    }
+
 
     @PostMapping("/putFile")
     public ResultModel putFile(@RequestParam("file")MultipartFile file,String date)throws Exception{
@@ -176,7 +236,13 @@ public class CalculatorController {
         ResultModel res9 = getLuoyesongByDay(date, file.getInputStream());
         ResultModel res10 = getLuoyesongByMonth(date, file.getInputStream());
         ResultModel res11 = getLuoyesongByYear(date, file.getInputStream());
-        Object arr [] =new Object[12];
+        ResultModel res12 = getThirdByWendu(file.getInputStream());
+        ResultModel res13 = getThirdByShidu(file.getInputStream());
+        ResultModel res14 = getThirdBybaiyang(file.getInputStream());
+        ResultModel res15 = getThirdByLuoyesong(file.getInputStream());
+        ResultModel res16 = getThirdQingyang(file.getInputStream());
+        ResultModel res17 = getThirdByYunshan(file.getInputStream());
+        Object arr [] =new Object[18];
         arr[0] =res.getData();
         arr[1] =res1.getData();
         arr[2] =res2.getData();
@@ -189,6 +255,12 @@ public class CalculatorController {
         arr[9] =res9.getData();
         arr[10] =res10.getData();
         arr[11] =res11.getData();
+        arr[12] =res12.getData();
+        arr[13] =res13.getData();
+        arr[14] =res14.getData();
+        arr[15] =res15.getData();
+        arr[16] =res16.getData();
+        arr[17] =res17.getData();
         return ResultModel.ok(arr);
     }
 
