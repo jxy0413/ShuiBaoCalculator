@@ -42,13 +42,15 @@ public class CalculatorUtils {
     x =
         (1 - Math.pow(Math.E, -environmentalSilver.getK() * environmentalSilver.getLAI()))
             * environmentalSilver.getRn();
+    System.out.println("x"+x);
     x1 = 1012 * environmentalSilver.getP1() * 1000 / (0.665 * environmentalSilver.getP());
-
+    System.out.println("x1"+x1);
     x2 =
         0.6108
             * Math.pow(
                 Math.E, 17.27 * environmentalSilver.getT() / (environmentalSilver.getT() + 237.3))
             * (1 - environmentalSilver.getRH());
+    System.out.println("x2"+x2);
     x3 =
         4.72
             / (1 + 0.54 * environmentalSilver.getU())
@@ -59,6 +61,7 @@ public class CalculatorUtils {
                 (environmentalSilver.getZ() - environmentalSilver.getD())
                     / environmentalSilver.getZ0());
     // 有问题
+    System.out.println("x3"+x3);
     x4 =
         (1
             + environmentalSilver.getRST()
@@ -69,9 +72,10 @@ public class CalculatorUtils {
                     / environmentalSilver.getZ0())
                 / (1 + 0.54 * environmentalSilver.getU()));
     // 下面有问题
+    System.out.println("x4"+x4);
     fenzi = (kaitou * zhongjian / zhongjianfenmu * x + x1) * x2 / x3;
     fenmu = kaitou * (zhongjian / zhongjian) + x4;
-    return fenzi / fenmu;
+    return fenzi / fenmu/100;
   }
 
   public List<EnvironmentalSilver> importExcel(InputStream in) throws Exception {

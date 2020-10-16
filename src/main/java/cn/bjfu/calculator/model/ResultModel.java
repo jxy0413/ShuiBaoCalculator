@@ -35,5 +35,4 @@ public class ResultModel<E> {
     public static <E> ResultModel<E> error(String error) {
         return error("470", error);
     }
-
 }

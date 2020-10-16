@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.0.0/echarts.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/echarts-gl/1.0.0/echarts-gl.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #header {
+      width: 100%;
+      height: 50px;
+      background-color: #75ca21;
+      font-size: 20px;
+      line-height: 50px;
+      font-weight: 700;
+      padding-left: 30px;
+      margin: 10px auto;
+    }
+
+    #search {
+      width: auto;
+      height: auto;
+      background-color: #21a5ca;
+      border-radius: 5px;
+      padding-top: 20px;
+      padding-bottom: 30px;
+      margin-bottom: 20px;
+      padding-left: 30px;
+    }
+
+    .charts {
+      float: left;
+    }
+
+    #upload {
+      width: auto;
+      height: 25px;
+    }
+
+    span {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- 页面header部分 -->
+  <div id="header">
+      基于Penman-Monteith模型建立多尺度估算典型林分蒸腾量分析计算软件
+  </div>
+  
+  <!-- 表单，用户需要输入日期及excel表 -->
+  <div id="search">
+    <form id="form1" method="POST" enctype="multipart/form-data">
+      <span>请输入需要查询的日期：</span><input type="text" placeholder="请输入查询日期" id="date" name="date">
+      </br>
+      </br>
+      <span>选择本地excel文件：</span><input type="file" class="form-control form-control-file" accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="file" id="file">
+      </br>
+      </br>
+      <span>点击获取数据：</span><input type="button" id='upload' value="获取数据并绘制图表">
+    </form>
+  </div>
+
+  <!-- echarts展示部分 -->
+  <div id="main0" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main1" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main2" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main3" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main4" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main5" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main6" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main7" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main8" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main9" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main10" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main11" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main12" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main13" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main14" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main15" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main16" class="charts" style="width: 50%;height:200px;"></div>
+  <div id="main17" class="charts" style="width: 50%;height:200px;"></div>
+
+  
+  <script>
+    var resultList = []; //取出的原始数据
+    var xArray = [];  //横坐标，时间
+    var yData = []; //纵坐标，实际数值
+
+    function handleResult(resultList) {
+      resultList.forEach((item,index)=>{
+        if(!item){//遍历数组，当对象为null时，直接返回，不做处理
+          return
+        }
+        if(index<=11){//前十二组数据处理
+          let x = []
+          let y = []
+          item.forEach(r=>{
+            x.push(Object.keys(r)[0])//将每个对象的每一组的第一个数据取出来作为x轴数据
+            y.push(Object.values(r)[0])//将每个对象的每一组的第二个数据取出来作为y轴数据
+          })
+          printChart(`main${index}`,x,y)//根据索引打印
+        }else{//三维数据
+          let data = [['rixu','shixu','t']]
+          item.forEach(r=>{
+            data.push(Object.values(r))
+          })
+          printChart(`main${index}`,data)
+        }
+      })
+    }
+
+    function printChart(id,xArray,yData) {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = echarts.init(document.getElementById(id));
+      let option = null
+      if(arguments.length!=2){//数的长度不为2时是折线图
+        option = {
+          title: {
+            text: '蒸腾情况'
+          },
+          tooltip: {},
+          legend: {
+            data:['蒸腾量mm/h']
+          },
+          xAxis: {
+            data: xArray
+          },
+          yAxis: {},
+          series: [{
+            name: '蒸腾量mm/h',
+            type: 'bar',
+            data: yData
+          }]
+        };
+      }else{//参照https://echarts.apache.org/examples/zh/editor.html?c=scatter3D-dataset&gl=1
+        option = {
+          grid3D: {},
+          xAxis3D: {
+            type: 'category'
+          },
+          yAxis3D: {
+            type: 'category'
+          },
+          zAxis3D: {},
+          dataset: {
+            dimensions: [
+              'rixu',
+              'shixu',
+              't'
+            ],
+            source: xArray
+          },
+          series: [
+            {
+              type: 'scatter3D',
+              symbolSize: 2.5,
+              encode: {
+                x: 'rixu',
+                y: 'shixu',
+                z: 't',
+                tooltip: [0, 1, 2, 3, 4]
+              }
+            }
+          ]
+        };
+      }
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+    }
+    
+    //表单click事件，获取后端数据（一次性获取）
+    $('#upload').click(function() {
+      var formData = new FormData(document.getElementById('form1'));
+      $.ajax({
+        //几个参数需要注意一下
+        type: "POST",//方法类型
+        dataType: "json",//预期服务器返回的数据类型
+        contentType: false,
+        processData: false,
+        url: "http://47.96.118.227:8008/putFile",//url
+        data: formData,
+        success: function (result) {
+          console.log(result);//打印服务端返回的数据(调试用)
+          resultList = result.data;
+          handleResult(resultList);
+        },
+        error : function() {
+          alert("异常！");
+        }
+     });
+    })
+  </script>
+</body>
+</html>
